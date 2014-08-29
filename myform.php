@@ -13,7 +13,7 @@ $varName = $_POST['formName'];
 
 
 <form action="myform.php" method="post">
- Enter your name:
+ Enter your name （日本語 or English）:
  <input type="text" name="formName" maxlength="15" value="<?php print($varName);?>">
 <input type="submit" name="formSubmit" value="Submit">
 </form>
