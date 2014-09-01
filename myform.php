@@ -37,13 +37,14 @@ $varName = $_POST['formName'];
  }
 
 
-?>
+?i>
 
 <?php
 try
 {
 //open the database
-$db = new PDO(sqlite3:testdog.db);
+$db = new PDO ("sqlite:/var/www/html/testdir/test.db");
+
 
 //create the database
 $db-->exec("CREATE TABLE Dog (Id INTEGER PRIMARY KEY, Breed TEXT, Name TEXT, Age INTEGER)");
