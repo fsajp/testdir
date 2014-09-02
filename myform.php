@@ -1,11 +1,13 @@
 <html>
 <head>
+
 <title> test Greeting Form - updated test</title>
 </head>
 
 <body>
 
 <?php
+
 if ($_POST['formSubmit']=="Submit"){
 $varName = $_POST['formName'];
 }
@@ -13,12 +15,10 @@ $varName = $_POST['formName'];
 
 
 <form action="myform.php" method="post">
- Enter your name Japanese or English）:
+ Enter your name (Japanese or English):
  <input type="text" name="formName" maxlength="15" value="<?php print($varName);?>">
 <input type="submit" name="formSubmit" value="Submit">
 </form>
-
-
 
 <?php
  if($_POST['formSubmit']=="Submit")
@@ -36,44 +36,64 @@ $varName = $_POST['formName'];
  echo("<ul>" . $errorMessage . "</ul>\n");}
  }
 
+?>
 
-?i>
+
 
 <?php
+
 try
 {
 //open the database
-$db = new PDO ("sqlite:/var/www/html/testdir/test.db");
+$db = new PDO('sqlite:/home/fenny/public_html/test.db');
+
 
 
 //create the database
-$db-->exec("CREATE TABLE Dog (Id INTEGER PRIMARY KEY, Breed TEXT, Name TEXT, Age INTEGER)");
+
+$sql=exec("CREATE TABLE Dog (Id INTEGER PRIMARY KEY, Breed TEXT, Name TEXT, Age INTEGER)");
+
+$createTable=$db->exec($sql);
+if($createTable){echo"Created!<br/><br/>";}
+else{echo"NOT Created!<br/><br/>";}
+
 
 //insert some data
-$db-->exec("INSERT INTO DOG (Breed, Name, Age) VALUES ('Labrador', 'Tank', 2);".
-INSERT INTO DOG (Breed, Name, Age) VALUES ('Husky', 'Glacier', 7);".
-INSERT INTO DOG (Breed, Name, Age) VALUES ('Golden-Doole', 'Ellie', 4);");
+$sql2=exec("INSERT INTO Dog (Breed, Name, Age) VALUES ('Labrador', 'Tank', 2);".
+"INSERT INTO Dog (Breed, Name, Age) VALUES ('Husky', 'Glacier', 7);".
+"INSERT INTO Dog (Breed, Name, Age) VALUES ('Golden-Doole', 'Ellie', 4);");
+
+$db->exec($sql2);
+
+$fillTable=$db->exec($sql2);
+
+if($fillTable){echo"Filled!<br/><br/>";}
+else{echo"NOT Filled!<br/><br/>";}
+
 
 //now ouput the data to a simple html table
 print "<table border=1>";
-print "<tdr><td>Id</td>Breed</td>Name</td><td>Age</td></tr>";
-$result = $db->query('SELECT * FROM Dog');
+print "<tr><td>Id</td><td>Breed</td><td>Name</td><td>Age</td></tr>";
+$result=$db->query('SELECT * FROM Dog');
 foreach($result as $row)
 {
 print "<tr><td>".$row['Id']."</td>";
-print "<tr><td>".$row['Breed']."</td>";
-print "<tr><td>".$row['Name']."</td>";
-print "<tr><td>".$row['Age']."</td></tr>";
+print "<td>".$row['Breed']."</td>";
+print "<td>".$row['Name']."</td>";
+print "<td>".$row['Age']."</td></tr>";
 }
-print'</table>";
+print"</table>";
+
 
 //close the database connection
-$db = NULL;
+$db=NULL;
 }
+
 catch(PDOException $e)
 {
 print 'Exception : '.$e->getMessage();
 }
+
 ?>
 
 
