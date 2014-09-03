@@ -45,25 +45,25 @@ $varName = $_POST['formName'];
 try
 {
 //open the database
-$db = new PDO('sqlite:/home/fenny/public_html/test.db');
+$db = new PDO('sqlite:/home/fenny/public_html/tempt/test2.db');
 
 
 
 //create the database
 
-$sql=exec("CREATE TABLE Dog (Id INTEGER PRIMARY KEY, Breed TEXT, Name TEXT, Age INTEGER)");
+$sql=("CREATE TABLE Dog (Id INTEGER PRIMARY KEY, Breed TEXT, Name TEXT, Age INTEGER)");
 
 $createTable=$db->exec($sql);
+echo $createTable;
 if($createTable){echo"Created!<br/><br/>";}
 else{echo"NOT Created!<br/><br/>";}
 
 
 //insert some data
-$sql2=exec("INSERT INTO Dog (Breed, Name, Age) VALUES ('Labrador', 'Tank', 2);".
+$sql2=("INSERT INTO Dog (Breed, Name, Age) VALUES ('Labrador', 'Tank', 2);".
 "INSERT INTO Dog (Breed, Name, Age) VALUES ('Husky', 'Glacier', 7);".
 "INSERT INTO Dog (Breed, Name, Age) VALUES ('Golden-Doole', 'Ellie', 4);");
 
-$db->exec($sql2);
 
 $fillTable=$db->exec($sql2);
 
