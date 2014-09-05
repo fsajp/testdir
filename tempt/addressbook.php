@@ -43,8 +43,8 @@ echo "<td>".$row['FirstName']."</td>";
 echo "<td>".$row['FamilyName']."</td>";
 echo "<td>".$row['Country']."</td>";
 echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/fulladdress.php?Id=".$row['Id']."'>View Detail</a></td>";
-echo "<td><a href='records.php?id=".$row->id."'>Edit</a></td>";
-echo "<td><a href='delete.php?id=".$row->id."'>Delete</a></td>";
+echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/delete.php?Id=".$row['Id']."'>Delete</a></td>";
+echo "<td><a href='delete.php?id=".$row->id."'>Edit</a></td>";
 echo "</tr>";
 }
 echo "</table>";
