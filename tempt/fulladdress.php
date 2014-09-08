@@ -54,6 +54,8 @@ print 'Exception : '.$e->getMessage();
 <p></p>
 <p></p>
 
+<a href="http://komorido.nims.go.jp/~fenny/tempt/addressbook.php">Back to Full List</a>
+
 </body>
 </html>
 

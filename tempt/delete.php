@@ -18,6 +18,11 @@ $result=$db->prepare($select);
 $result->execute();
 
 echo "Data is deleted";
+
+echo '<p><p>';
+
+header("Location:addressbook.php");
+
 }
 
 //include ('addressbook.php');
