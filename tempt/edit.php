@@ -9,8 +9,8 @@ $db = new PDO('sqlite:/home/fenny/public_html/tempt/addressbook.db');
 {
 if(isset($_GET['Id']))
 $Id=$_GET['Id'];
-{
-if(isset($_POST['submit']))
+
+//if(isset($_POST['submit']))
 
 {
 $FirstName=$_POST['FirstName'];
@@ -51,6 +51,9 @@ $Street=$_POST['Street'];
 $Number=$_POST['Number'];
 }
 */
+
+if(isset($_POST['submit']))
+
 {
 $query2=$db->prepare("UPDATE fulladdress SET FirstName=:FirstName, FamilyName=:FamilyName, Country=:Country,City=:City,Street=:Street, Number=:Number WHERE Id='$Id'");
 $query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
@@ -67,7 +70,7 @@ include('fulladdress.php');
 
 
 }
-}
+
 
 $db=NULL;
 }
