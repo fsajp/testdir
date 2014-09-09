@@ -1,5 +1,6 @@
 <html>
 <body>
+<h1>Update Existing Record</h1>
 
 <?php
 

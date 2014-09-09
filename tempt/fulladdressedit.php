@@ -26,7 +26,7 @@ $result=$db->prepare($select);
 $result->execute();
 //ouput the data to a simple html table
 print "<table border=1>";
-print "<tr><td>ID</td><td>First Name</td><td>Last Name</td><td>Country</td><td>City</td><td>Street</td><td>Number</td></tr>";
+print "<tr><td>ID</td><td>First Name</td><td>Last Name</td><td>Country</td><td>City</td><td>Street</td><td>Number</td><td></td></tr>";
 
 foreach($result as $row)
 {
@@ -36,7 +36,9 @@ print "<td>".$row['FamilyName']."</td>";
 print "<td>".$row['Country']."</td>";
 print "<td>".$row['City']."</td>";
 print "<td>".$row['Street']."</td>";
-print "<td>".$row['Number']."</td></tr>";
+print "<td>".$row['Number']."</td>";
+print "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/delete.php?Id=".$row['Id']."'>Delete</a></td>";
+print "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/edit.php?Id=".$row['Id']."'>Edit</a></td></tr>";
 }
 print "</table>";
 }

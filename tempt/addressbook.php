@@ -5,9 +5,9 @@
 </head>
 
 <body>
-
+<h1>Address Book</h1>
 <?php
-
+//connect to database
 try
 {
 //open the database
@@ -42,7 +42,7 @@ echo "<tr><td>".$row['Id']."</td>";
 echo "<td>".$row['FirstName']."</td>";
 echo "<td>".$row['FamilyName']."</td>";
 echo "<td>".$row['Country']."</td>";
-echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/fulladdress.php?Id=".$row['Id']."'>View Detail</a></td>";
+echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/fulladdressedit.php?Id=".$row['Id']."'>View Detail</a></td>";
 echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/delete.php?Id=".$row['Id']."'>Delete</a></td>";
 echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/edit.php?Id=".$row['Id']."'>Edit</a></td>";
 //echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/edit2.php?Id=".$row['Id'].",FirstName=".$row['FirstName']."'>Edit</a></td>";

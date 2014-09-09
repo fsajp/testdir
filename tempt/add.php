@@ -1,5 +1,6 @@
 <html>
 <body>
+<h1>Add New Records</h1>
 
 <fieldset style="width:300px;">
 <form method="POST" action="">
