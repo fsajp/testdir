@@ -1,4 +1,5 @@
 <html>
+<meta charset='Shift-JIS'>
 <body>
 <h1>Update Existing Record</h1>
 

@@ -1,4 +1,5 @@
 <html>
+<meta charset='Shift-JIS'>
 <head>
 
 <title> Address Book </title>
@@ -32,7 +33,7 @@ $result->execute();
 //$fillTable=$db->exec($sqlfill);
 
 //ouput the data to a simple html table
-echo "<table border=1>";
+echo "<table class='table table-hover' border=1>";
 echo "<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Country</th><th></th><th></th><th></th></tr>";
 
 foreach($result as $row)

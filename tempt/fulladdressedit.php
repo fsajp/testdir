@@ -1,4 +1,5 @@
 <html>
+<meta charset='Shift-JIS'>
 <head>
 
 <title> Full Address </title>

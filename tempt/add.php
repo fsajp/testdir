@@ -1,4 +1,5 @@
 <html>
+<meta charset='shift-JIS'>
 <body>
 <h1>Add New Records</h1>
 
