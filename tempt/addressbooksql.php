@@ -17,15 +17,15 @@ try
 {
 //open the 
 
-//$db = new PDO("mysql:host=$hostname; dbname=addressbooksql",$username,$password);
+$db = new PDO("mysql:host=$hostname; dbname=addressbooksql",$username,$password);
 
 
-$db = new PDO('sqlite:/home/fenny/public_html/tempt/addressbook.db');
+//$db = new PDO('sqlite:/home/fenny/public_html/tempt/addressbook.db');
 //$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);}
 //catch(PDOException $e) {echo 'Connection failed: ' . $e->getMessage();}
 
 //Get data
-$statement="SELECT * FROM fulladdress";
+$statement="SELECT * FROM fulladdresssql";
 
 $result=$db->prepare($statement);
 $result->execute();
@@ -51,9 +51,9 @@ echo "<tr><td>".$row['Id']."</td>";
 echo "<td>".$row['FirstName']."</td>";
 echo "<td>".$row['FamilyName']."</td>";
 echo "<td>".$row['Country']."</td>";
-echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/fulladdressedit.php?Id=".$row['Id']."'>View Detail</a></td>";
-echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/delete.php?Id=".$row['Id']."'>Delete</a></td>";
-echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/edit.php?Id=".$row['Id']."'>Edit</a></td>";
+echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/fulladdresseditsql.php?Id=".$row['Id']."'>View Detail</a></td>";
+echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/deletesql.php?Id=".$row['Id']."'>Delete</a></td>";
+echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/editsql.php?Id=".$row['Id']."'>Edit</a></td>";
 //echo "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/edit2.php?Id=".$row['Id'].",FirstName=".$row['FirstName']."'>Edit</a></td>";
 echo "</tr>";
 }
@@ -75,7 +75,7 @@ print 'Exception : '.$e->getMessage();
 <p></p>
 
 
-<a href="http://komorido.nims.go.jp/~fenny/tempt/add.php">Add New Record</a>
+<a href="http://komorido.nims.go.jp/~fenny/tempt/addsql.php">Add New Record</a>
 
 </body>
 </html>
