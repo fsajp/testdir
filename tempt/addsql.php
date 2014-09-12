@@ -28,6 +28,7 @@ echo "Country&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name=
 echo "City&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='City' value=".$_POST['City']." ><br>";
 echo "Street&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='Street' value=".$_POST['Street']." ><br>";
 echo "Number&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='Number' value=".$_POST['Number']." ><br>";
+//echo "Email&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='varchar' name='Email' value=".$_POST['Email']." ><br>";
 echo "<br>";
 echo "<input type='submit' name='submit' value='Add New Record'>";
 echo "</form>";
@@ -41,16 +42,22 @@ $Country=$_POST['Country'];
 $City=$_POST['City'];
 $Street=$_POST['Street'];
 $Number=$_POST['Number'];
+//$Email=$_POST['Email'];
 }
 
 if(isset($_POST['submit']))
 $query1=$db->prepare("INSERT INTO fulladdresssql (FirstName, FamilyName, Country, City, Street, Number) VALUES(:FirstName,:FamilyName,:Country,:City,:Street,:Number)");
+//$query2=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email) VALUES (:FirstName, :FamilyName, :Email)");
 $query1->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
 $query1->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 20);
 $query1->bindParam(':Country', $Country, PDO::PARAM_STR, 20);
 $query1->bindParam(':City', $City, PDO::PARAM_STR, 20);
 $query1->bindParam(':Street', $Street, PDO::PARAM_STR, 20);
 $query1->bindParam(':Number', $Number, PDO::PARAM_INT);
+$query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
+$query2->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 20);
+$query2->bindParam(':Email', $Email, PDO:: PARAM_STR,20);
+
 {
 //check if FirstName or Family Name are empty
 if($FirstName == '' || $FamilyName == '')
@@ -62,7 +69,7 @@ echo "$error!";
 else
 {
 $query1->execute();
-
+//$query2->execute();
 echo '<p><p>';
 
 echo "Data is added";

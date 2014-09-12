@@ -54,7 +54,30 @@ print "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/deletesql.php?Id=".$
 print "<td><a href='http://komorido.nims.go.jp/~fenny/tempt/editsql.php?Id=".$row['Id']."'>Edit</a></td></tr>";
 }
 print "</table>";
+
+//list email
+$email="SELECT Email FROM additionalinfosql WHERE Id=$Id";
+$eresult=$db->prepare($email);
+$eresult->execute();
+$row_count=$eresult->rowCount();
+$emaillist=$eresult->fetchall();
+
+Print' <p><p>';
+Print "Contact Email Address:";
+//If no email found:
+If ($row_count<1)
+Print "<p>No email address information available</p>";
+//If email is found:
+else
+{
+foreach ($emaillist as $rowemail)
+{
+print "<br><a href='mailto:'>".$rowemail['Email']."";
 }
+}
+}
+
+
 //close the database connection
 $db=NULL;
 }
