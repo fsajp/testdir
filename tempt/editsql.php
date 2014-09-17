@@ -8,7 +8,7 @@ $hostname='localhost';
 $username='root';
 $password='kagaku';
 
-
+//print_r($_POST['Email']);
 
 
 
@@ -20,8 +20,9 @@ $db = new PDO("mysql:host=$hostname; dbname=addressbooksql",$username,$password)
 
 
 {
-if(isset($_GET['Id']))
+//if(isset($_GET['Id']))
 $Id=$_GET['Id'];
+//$Id='28';
 
 //if(isset($_POST['submit']))
 {
@@ -35,14 +36,13 @@ $Email=$_POST['Email'];
 }
 
 
-//$select="SELECT * FROM fulladdresssql where Id=$Id";
-$select="SELECT fulladdresssql.FirstName, fulladdresssql.FamilyName, fulladdresssql.Country, fulladdresssql.City, fulladdresssql.Street, fulladdresssql.Number, additionalinfosql.Email FROM additionalinfosql RIGHT JOIN fulladdresssql ON additionalinfosql.Id=fulladdresssql.Id where fulladdresssql.Id=$Id";
+$select="SELECT * FROM fulladdresssql where Id=$Id";
 
 $result=$db->prepare($select);
 $result->execute();
 $eresult=$result->fetchall();
 foreach($eresult as $query2)
-
+{
 echo "<table width='300px'>";
 echo "<p><p>";
 echo "<h3>To be Updated Record</h3>";
@@ -53,7 +53,7 @@ echo "</td>";
 echo "<td valign='top'>";
 echo "<input type='text' name='FirstName' maxlength='50' size='30' value= ".$query2['FirstName']."></td></tr>";
 echo "<tr><td valign='top'>";
-echo "<label for 'Last Name'>Last Name:</label>";
+echo "<label for 'Family Name'>Family Name:</label>";
 echo "</td>";
 echo "<td valign='top'>";
 echo "<input type='text' name='FamilyName' maxlength='50' size='30' value= ".$query2['FamilyName']."></td></tr>";
@@ -77,27 +77,22 @@ echo "<label for 'Number'>Number:</label>";
 echo "</td>";
 echo "<td valign='top'>";
 echo "<input type='text' name='Number' maxlength='50' size='30' value= ".$query2['Number']."></td></tr>";
-foreach($eresult as $rowemail)
+}
+
+$selectinfo="SELECT * FROM additionalinfosql where Id=$Id";
+//echo $selectinfo;
+$resultaddinfo=$db->prepare($selectinfo);
+$resultaddinfo->execute();
+$inforesult=$resultaddinfo->fetchall();
+foreach($inforesult as $rowemail)
 {
 echo "<tr><td valign='top'>";
 echo "<label for 'Email'>Email:</label>";
 echo "</td>";
 echo "<td valign='top'>";
-echo "<textarea rows=10 cols=40 type='varchar' name='Email' maxlength='50' size='30' value= ".$rowemail['Email']."></textarea></td></tr>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30']>".$rowemail['Email']."</textarea></td></tr>";
 }
 
-/*
-echo "First Name&nbsp&nbsp&nbsp&nbsp: <input type='text' name='FirstName' value= ".$query2['FirstName']."><br>";
-echo "Family Name : <input type='text' name='FamilyName' value= ".$query2['FamilyName']."><br>";
-echo "Country&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='Country' value= ".$query2['Country']."><br>";
-echo "City&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='City' value= ".$query2['City']."><br>";
-echo "Street&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='Street' value= ".$query2['Street']."><br>";
-echo "Number&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='text' name='Number' value= ".$query2['Number']."><br>";
-foreach($eresult as $rowemail)
-{
-echo "Email&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <input type='varchar' name='Email' value= ".$rowemail['Email']."><br>";
-}
-*/
 echo '<tr><td>';
 echo '<input type="submit" name="submit" value="Update Data">';
 echo '</td></tr>';
@@ -107,33 +102,53 @@ echo '</table>';
 
 
 if(isset($_POST['submit']))
+{
+
+if ($FirstName == '' || $FamilyName == '')
+{
+$error = "PLEASE FILL IN ALL REQUIRED FIELDS";
+echo '<p><p>';
+echo "$error!";
+}
+else
+{
+//echo "DELETE FROM additionalinfosql WHERE  Id='$Id')";
+$query3=$db->prepare("DELETE FROM additionalinfosql WHERE  Id='$Id'");
+$query3->execute();
+
+$i=0;
+foreach ($Email as $_POST['Email'])
+{
+//print_r($Email);
+//print "email0: " .($Email[0]). "<br>";
+//print "email1: " .($Email[1]). "<br>";
+//print "email2: " .($Email[2]). "<br>";
+
+$query4=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email, Id) VALUES (:FirstName, :FamilyName, :Email, :Id)");
+$query4->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
+$query4->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 25);
+$query4->bindParam(':Email', $Email[$i], PDO::PARAM_STR);
+$query4->bindParam(':Id',$Id, PDO::PARAM_INT);
+$query4->execute();
+$i=$i+1;
+}
+
 
 $query2=$db->prepare("UPDATE fulladdresssql SET FirstName=:FirstName, FamilyName=:FamilyName, Country=:Country,City=:City,Street=:Street, Number=:Number WHERE Id='$Id'");
-$query3=$db->prepare("UPDATE additionalinfosql SET Email=:Email WHERE Id='$Id']");
+//$query3=$db->prepare("UPDATE additionalinfosql SET Email=:Email WHERE Id='$Id']");
 $query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
 $query2->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 25);
 $query2->bindParam(':Country', $Country, PDO::PARAM_STR);
 $query2->bindParam(':City', $City, PDO::PARAM_STR);
 $query2->bindParam(':Street', $Street, PDO::PARAM_STR);
 $query2->bindParam(':Number', $Number, PDO::PARAM_STR);
-$query3->bindParam(':Email', $Email, PDO::PARAM_STR);
-//check if FirstName and FamilyName are both not empty
-if ($FirstName == '' || $FamilyName == '')
-{
-$error = "PLEASE FILL IN ALL REQUIRED FIELDS";
-echo '<p><p>';
-echo "$error!";
 
-}
-else
-{
 $query2->execute();
-$query3->execute();
-
+}
 
 include('fulladdresssql.php');
-}
 
+}
 }
 
 
@@ -151,7 +166,6 @@ print 'Exception : '.$e->getMessage();
 
 </body>
 </html>
-
 
 
 

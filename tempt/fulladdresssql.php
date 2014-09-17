@@ -32,8 +32,8 @@ if(isset($_GET['Id']))
 {
 $Id=$_GET['Id'];
 
-
 $select="SELECT * FROM fulladdresssql WHERE Id=$Id";
+//echo $select;
 $result=$db->prepare($select);
 $result->execute();
 //ouput the data to a simple html table
