@@ -56,17 +56,17 @@ echo "<tr><td valign='top'>";
 echo "<label for 'Email'>Email:</label>";
 echo "</td>";
 echo "<td valign='top'>";
-echo "<textarea rows=1 cols=40 type='varchar' name='Email' maxlength='50' size='30' value= ".$_POST['Email1']."></textarea></td></tr>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email1' maxlength='50' size='30' value= ".$_POST['Email1']."></textarea></td></tr>";
 echo "<tr><td valign='top'>";
 echo "<label for 'Email'>Email:</label>";
 echo "</td>";
 echo "<td valign='top'>";
-echo "<textarea rows=1 cols=40 type='varchar' name='Email' maxlength='50' size='30' value= ".$_POST['Email2']."></textarea></td></tr>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email2' maxlength='50' size='30' value= ".$_POST['Email2']."></textarea></td></tr>";
 echo "<tr><td valign='top'>";
 echo "<label for 'Email'>Email:</label>";
 echo "</td>";
 echo "<td valign='top'>";
-echo "<textarea rows=1 cols=40 type='varchar' name='Email' maxlength='50' size='30' value= ".$_POST['Email3']."></textarea></td></tr>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email3' maxlength='50' size='30' value= ".$_POST['Email3']."></textarea></td></tr>";
 echo '<tr><td>';
 echo '<br>';
 echo '<input type="submit" name="submit" value="Add New Record">';
@@ -96,7 +96,9 @@ $Country=$_POST['Country'];
 $City=$_POST['City'];
 $Street=$_POST['Street'];
 $Number=$_POST['Number'];
-$Email=$_POST['Email'];
+$Email1=$_POST['Email1'];
+$Email2=$_POST['Email2'];
+$Email3=$_POST['Email3'];
 }
 
 if(isset($_POST['submit']))
@@ -131,21 +133,42 @@ echo '<p><p>';
 echo '<p><p>';
 
 $lastId=$db->lastInsertId();
-If $_POST['Email1'=='']
+
+If ($Email1 =='')
 {}
 else
 {
-$query2=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email, Id) VALUES (:FirstName, :FamilyName, :Email, :Id)");
+$query2=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email, Id) VALUES (:FirstName, :FamilyName, :Email1, :Id)");
 $query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
 $query2->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 25);
-$query2->bindParam(':Email', $Email1, PDO::PARAM_STR);
+$query2->bindParam(':Email1', $Email1, PDO::PARAM_STR);
 $query2->bindParam(':Id',$lastId, PDO::PARAM_INT);
 $query2->execute();
-$i=$i+1;
 }
 
+If ($Email2 =='')
+{}
+else
+{
+$query2=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email, Id) VALUES (:FirstName, :FamilyName, :Email2, :Id)");
+$query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
+$query2->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 25);
+$query2->bindParam(':Email2', $Email2, PDO::PARAM_STR);
+$query2->bindParam(':Id',$lastId, PDO::PARAM_INT);
+$query2->execute();
+}
 
-
+If ($Email3 =='')
+{}
+else
+{
+$query2=$db->prepare("INSERT INTO additionalinfosql (FirstName, FamilyName, Email, Id) VALUES (:FirstName, :FamilyName, :Email3, :Id)");
+$query2->bindParam(':FirstName', $FirstName, PDO::PARAM_STR, 20);
+$query2->bindParam(':FamilyName', $FamilyName, PDO::PARAM_STR, 25);
+$query2->bindParam(':Email3', $Email3, PDO::PARAM_STR);
+$query2->bindParam(':Id',$lastId, PDO::PARAM_INT);
+$query2->execute();
+}
 
 
 //echo $lastId;

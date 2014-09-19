@@ -84,6 +84,31 @@ $selectinfo="SELECT * FROM additionalinfosql where Id=$Id";
 $resultaddinfo=$db->prepare($selectinfo);
 $resultaddinfo->execute();
 $inforesult=$resultaddinfo->fetchall();
+$numrows=Count($inforesult);
+//echo $numrows;
+
+
+if ($numrows ==  '0')
+{
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+}
+
+elseif ($numrows == '1')
+{
 foreach($inforesult as $rowemail)
 {
 echo "<tr><td valign='top'>";
@@ -92,6 +117,50 @@ echo "</td>";
 echo "<td valign='top'>";
 echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30']>".$rowemail['Email']."</textarea></td></tr>";
 }
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+}
+
+
+elseif ($numrows== '2')
+{
+foreach($inforesult as $rowemail)
+{
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30']>".$rowemail['Email']."</textarea></td></tr>";
+}
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30' value= ".$_POST['Email']."></textarea></td></tr>";
+}
+
+
+else
+{
+foreach($inforesult as $rowemail)
+{
+echo "<tr><td valign='top'>";
+echo "<label for 'Email'>Email:</label>";
+echo "</td>";
+echo "<td valign='top'>";
+echo "<textarea rows=1 cols=40 type='varchar' name='Email[]' maxlength='50' size='30']>".$rowemail['Email']."</textarea></td></tr>";
+}
+}
+
+
 
 echo '<tr><td>';
 echo '<input type="submit" name="submit" value="Update Data">';
@@ -133,6 +202,8 @@ $query4->execute();
 $i=$i+1;
 }
 
+$query5=$db->prepare("DELETE FROM additionalinfosql WHERE  Id='$Id' AND Email = ''");
+$query5->execute();
 
 $query2=$db->prepare("UPDATE fulladdresssql SET FirstName=:FirstName, FamilyName=:FamilyName, Country=:Country,City=:City,Street=:Street, Number=:Number WHERE Id='$Id'");
 //$query3=$db->prepare("UPDATE additionalinfosql SET Email=:Email WHERE Id='$Id']");

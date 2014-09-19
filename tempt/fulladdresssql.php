@@ -69,7 +69,7 @@ else
 {
 foreach ($emaillist as $rowemail)
 {
-print "<br><a href='mailto:'>".$rowemail['Email']."";
+print "<br><a href='mailto:".$rowemail['Email']."'>".$rowemail['Email']."";
 }
 }
 }
